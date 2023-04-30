@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+
+<a th:href="@{/logout}">Logout</a>
+
+<p>id=<span th:text="${user.id}">VALUE</span></p>
+<p>username=<span th:text="${user.username}">VALUE</span></p>
+<p>first name=<span th:text="${user.firstName}">VALUE</span></p>
+<p>last name=<span th:text="${user.lastName}">VALUE</span></p>
+<p>age=<span th:text="${user.age}">VALUE</span></p>
+
+<a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/admin/{id}/edit(id=${user.id})}">Edit</a>
+
+<form sec:authorize="hasAuthority('ROLE_ADMIN')" th:method="DELETE" th:action="@{/admin/{id}(id=${user.id})}">
+      <input type="submit" value="Delete">
+</form>
+</body>
+</html>
