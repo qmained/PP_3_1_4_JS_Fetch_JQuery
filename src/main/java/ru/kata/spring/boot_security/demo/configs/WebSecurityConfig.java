@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 @Configuration
@@ -44,35 +43,6 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    // аутентификация inMemory
-//    @Bean
-//    public JdbcUserDetailsManager userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        UserDetails admin =
-//                User.withDefaultPasswordEncoder()
-//                        .username("admin")
-//                        .password("admin")
-//                        .roles("ADMIN")
-//                        .build();
-//
-//        JdbcUserDetailsManager users = new JdbcUserDetailsManager();
-//        if (users.userExists(user.getUsername())) {
-//            users.deleteUser(user.getUsername());
-//        }
-//        if (users.userExists(admin.getUsername())) {
-//            users.deleteUser(admin.getUsername());
-//        }
-//        users.createUser(user);
-//        users.createUser(admin);
-//        return users;
-//    }
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -82,13 +52,6 @@ public class WebSecurityConfig {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-//        User user = new User();
-//        user.setUsername("admin");
-//        user.setPassword("root");
-//        user.setAge(19);
-//        user.setFirstName("Viktor");
-//        user.setLastName("Kostrubov");
-//        userService.add(user);
         authenticationProvider.setUserDetailsService(userService);
         return authenticationProvider;
     }

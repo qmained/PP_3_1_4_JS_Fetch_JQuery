@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.Collections;
@@ -19,6 +20,7 @@ public class UserDaoImp implements UserDao {
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     UserRepository userRepository;
+    RoleRepository roleRepository;
 
 //    @Autowired
 //    public void setBCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -29,6 +31,12 @@ public class UserDaoImp implements UserDao {
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+    @Autowired
+    public void setRoleRepository(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
 
     @Override
     public boolean add(User user) {
@@ -44,7 +52,6 @@ public class UserDaoImp implements UserDao {
     @Override
     public void update(User user) {
         userRepository.save(user);
-        userRepository.flush();
     }
 
     @Override
