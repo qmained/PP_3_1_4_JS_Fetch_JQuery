@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 @Configuration
@@ -27,6 +29,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = Exception.class)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
