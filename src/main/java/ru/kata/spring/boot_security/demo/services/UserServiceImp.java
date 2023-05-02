@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.services;
 
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,11 +18,15 @@ import java.util.List;
 @Transactional
 public class UserServiceImp implements UserService {
 
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    UserRepository userRepository;
-    RoleRepository roleRepository;
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
 
+    @Autowired
+    public void setBCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -43,6 +46,15 @@ public class UserServiceImp implements UserService {
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        return true;
+    }
+
+    @Override
+    public boolean addRole(Role role) {
+        if (roleRepository.findByName(role.getName()) != null) {
+            return false;
+        }
+        roleRepository.save(role);
         return true;
     }
 
@@ -73,7 +85,7 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+        User user = userRepository.getUserByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User %s not found", username));
         }
@@ -86,14 +98,4 @@ public class UserServiceImp implements UserService {
         return userRepository.getUserByUsername(username) != null;
     }
 
-
-    private User findByUsername(String username) {
-        return userRepository.getUserByUsername(username);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Role findByName(String name) {
-        return roleRepository.findByName(name);
-    }
 }

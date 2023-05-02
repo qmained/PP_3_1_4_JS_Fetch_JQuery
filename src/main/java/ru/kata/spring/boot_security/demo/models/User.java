@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "t_user")
+@Table(name = "user")
 public class User implements UserDetails {
 
     @Id
@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private Integer age;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "t_user_roles",
+    @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;

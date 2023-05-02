@@ -12,6 +12,8 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     boolean add(User user);
 
+    boolean addRole(Role role);
+
     void update(User user);
 
     void removeById(long id);
@@ -23,8 +25,6 @@ public interface UserService extends UserDetailsService {
     boolean containsUser(String username);
 
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
-
-    Role findByName(String name);
 
 
 }

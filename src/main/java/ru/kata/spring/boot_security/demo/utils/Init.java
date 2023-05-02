@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
@@ -25,15 +26,18 @@ public class Init {
 
     @PostConstruct
     private void postConstruct() {
-        if (!userService.containsUser("username")) {
-            User user = new User("username", "password", "firstName", "lastName", 20, Collections.singleton(userService.findByName("ROLE_USER")));
-            userService.add(user);
-        }
-        if (!userService.containsUser("admin")) {
-            User admin = new User("admin", "root", "administrator", "programmer", 19
-                    , new HashSet<>(Arrays.asList(userService.findByName("ROLE_USER"), userService.findByName("ROLE_ADMIN"))));
-            userService.add(admin);
-        }
+
+        Role role_user = new Role("ROLE_USER");
+        userService.addRole(role_user);
+        Role role_admin = new Role("ROLE_ADMIN");
+        userService.addRole(role_admin);
+
+        User user = new User("username", "password", "firstName", "lastName", 20, Collections.singleton(role_user));
+        userService.add(user);
+        User admin = new User("admin", "root", "administrator", "programmer", 19
+                , new HashSet<>(Arrays.asList(role_user, role_admin)));
+        userService.add(admin);
+
     }
 
 }

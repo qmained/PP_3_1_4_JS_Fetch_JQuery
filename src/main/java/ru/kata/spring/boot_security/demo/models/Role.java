@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Data
-@Table(name = "t_role")
+@Table(name = "role")
 public class Role implements GrantedAuthority {
 
     @Id
@@ -16,19 +16,14 @@ public class Role implements GrantedAuthority {
     private Long id;
 
     private String name;
-
-//    @Transient
-//    @ManyToMany(mappedBy = "roles")
-//    private Set<User> users;
-
-    public Role(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public Role() {
 
     }
+
+    public Role(String name) {
+        this.name = name;
+    }
+
 
     @Override
     public String getAuthority() {
