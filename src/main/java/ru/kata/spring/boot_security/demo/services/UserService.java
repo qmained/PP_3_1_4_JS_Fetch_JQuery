@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     boolean add(User user);
 
-    boolean addRole(Role role);
+    Role addRole(Role role);
 
     void update(List<User> users);
 

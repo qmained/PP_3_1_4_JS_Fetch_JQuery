@@ -28,9 +28,9 @@ public class Init {
     private void postConstruct() {
 
         Role role_admin = new Role("ROLE_ADMIN");
-        userService.addRole(role_admin);
+        role_admin = userService.addRole(role_admin);
         Role role_user = new Role("ROLE_USER");
-        userService.addRole(role_user);
+        role_user = userService.addRole(role_user);
 
         User admin = new User("admin@gmail.com", "root", "administrator", "programmer", 19
                 , new HashSet<>(Arrays.asList(role_admin, role_user)));

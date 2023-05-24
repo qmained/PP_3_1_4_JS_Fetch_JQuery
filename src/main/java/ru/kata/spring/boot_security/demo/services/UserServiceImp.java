@@ -50,12 +50,13 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public boolean addRole(Role role) {
-        if (roleRepository.findByName(role.getName()) != null) {
-            return false;
+    public Role addRole(Role role) {
+        Role bdRole = roleRepository.findByName(role.getName());
+        if (bdRole != null) {
+            return bdRole;
         }
         roleRepository.save(role);
-        return true;
+        return role;
     }
 
     @Override
