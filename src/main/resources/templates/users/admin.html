@@ -151,7 +151,7 @@
                     <form th:id="'inputForm'+${userStat.index}" th:method="PATCH" th:action="@{/admin}">
                         <div class="mb-3 mx-auto col-10 col-md-8 col-lg-6">
                             <label for="inputId"><b>Id</b></label>
-                            <input type="number" class="form-control" id="inputId" th:field="*{form.users[__${userStat.index}__].id}" disabled>
+                            <input type="number" class="form-control" id="inputId" th:field="*{form.users[__${userStat.index}__].id}" readonly>
                         </div>
                         <div class="mb-3 mx-auto col-10 col-md-8 col-lg-6">
                             <label for="inputFirstName"><b>First name</b></label>
