@@ -31,7 +31,8 @@ $(async function () {
         })
 
 })
-$(document).on("click", "#user-button", async function () {
+$(document).on("click", "#user-button", async function (event) {
+    event.preventDefault()
     if (!$(this).hasClass("active")) {
         await loadUserTable()
     }
@@ -65,7 +66,8 @@ async function loadUserTable() {
         "                            </th>\n")
 }
 
-$(document).on("click", "#admin-button", async function () {
+$(document).on("click", "#admin-button", async function (event) {
+    event.preventDefault()
     if (!$(this).hasClass("active")) {
         await loadAdminTable()
     }
@@ -278,7 +280,8 @@ $("#inputDeleteForm").on("submit", async function (event) {
     await loadTable("http://localhost:8080/api/users")
 })
 
-$(document).on("click", "#admin-page-button", async function () {
+$(document).on("click", "#admin-page-button", async function (event) {
+    event.preventDefault()
     if (!$(this).hasClass("active")) {
         await loadAdminPage()
     }
@@ -329,7 +332,8 @@ async function loadAdminPage() {
     await loadTable("http://localhost:8080/api/users")
 }
 
-$(document).on("click", "#add-page-button", async function () {
+$(document).on("click", "#add-page-button", async function (event) {
+    event.preventDefault()
     if (!$(this).hasClass("active")) {
         await loadAddPage()
     }
