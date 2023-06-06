@@ -60,12 +60,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void update(List<User> users) {
-        for (User user : users) {
-            if (user.getUsername() != null) {
-                userRepository.save(user);
-            }
-        }
+    public void update(User user) {
+        userRepository.save(user);
     }
 
     @Override
